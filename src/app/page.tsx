@@ -190,7 +190,6 @@ export default function Portfolio() {
             <a href="#contact" className="hover:underline">Contact</a>
           </nav>
           <div className="flex gap-2">
-            <Button asChild variant="default" size="sm"><a href="#contact">문의하기</a></Button>
           </div>
         </div>
       </header>
@@ -499,17 +498,6 @@ export default function Portfolio() {
       </section>
 
       <Separator className="max-w-6xl mx-auto"/>
-
-      {/* Contact */}
-      <section id="contact" className="max-w-6xl mx-auto px-4 py-14">
-        <h2 className="text-2xl font-bold">Contact</h2>
-        <p className="text-slate-600 mt-2">협업·채용 문의는 아래 채널로 연락 주세요.</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          {contacts.map((c) => (
-            <Button asChild key={c.label} variant="outline"><a href={c.href} target="_blank" rel="noreferrer"><c.icon className="h-4 w-4 mr-2"/>{c.label}</a></Button>
-          ))}
-        </div>
-      </section>
 
       <footer className="border-t">
         <div className="max-w-6xl mx-auto px-4 py-8 text-xs text-slate-500 flex flex-wrap items-center gap-3">
