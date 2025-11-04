@@ -32,7 +32,7 @@ export default function Portfolio() {
   }, []);
 
   const skills = [
-    { title: '플랫폼·인프라', items: ['Ubuntu(On‑prem/AWS/GCP)', 'Nginx', 'Hyperledger Besu', 'Redis', 'MySQL/TiDB'] },
+    { title: '플랫폼·인프라', items: ['Ubuntu(On‑prem/AWS/GCP)', 'Nginx', 'Hyperledger Besu', 'Redis', 'MySQL'] },
     { title: '컨테이너·오케스트레이션', items: ['Docker', 'Kubernetes', 'Helm(옵션)', 'Ingress 기본기'] },
     { title: 'CI/CD·자동화', items: ['GitLab CI', 'Jenkins', 'ArgoCD(GitOps)', 'Shell 스크립팅', 'Cron 배치'] },
     { title: 'IaC', items: ['Terraform', 'Ansible(Playbook)'] },
@@ -48,11 +48,9 @@ export default function Portfolio() {
       impact: [
         '일일 수십만 건 트랜잭션 안정 처리, 성공률 99%+',
         'UUID·tx_hash 기반 중복 지급 방지, 콜백 API·리트라이 루프 설계',
-        '장애 시 수동개입 최소화(운영 효율 ↑)',
       ],
-      stack: ['Hyperledger Besu', 'PHP·Spring Boot', 'MySQL→TiDB', 'Redis', 'Prometheus·Grafana', 'Shell/Cron'],
+      stack: ['Hyperledger Besu', 'PHP·Spring Boot', 'MySQL', 'Redis', 'Prometheus·Grafana', 'Shell/Cron'],
       responsibilities: [
-        'RPC 트랜잭션 흐름 분석 및 예외 패턴 정의',
         '재시도 정책(백오프, 최대 재시도, 보상 트랜잭션) 수립',
         '콜백 API/로그 트레이스 표준화, 운영 대시보드 연동',
       ],
@@ -72,16 +70,14 @@ export default function Portfolio() {
     {
       id: 'cicd',
       title: 'CI/CD·성능 최적화 기반 서비스 전환',
-      subtitle: 'GitOps 파이프라인 · 대용량 데이터 1억+ · 응답 60s→3s',
+      subtitle: 'GitOps 파이프라인 · 대용량 데이터 1억+ 처리',
       impact: [
         '서비스 전환(기존 PHP → Spring Boot)으로 유지보수성·보안성 강화',
-        '쿼리 튜닝/파티셔닝/인덱스 최적화로 평균 응답 60s→3s',
         '빌드·배포 표준화로 배포 리드타임 단축',
       ],
       stack: ['Spring Boot', 'GitLab CI', 'Jenkins', 'Docker', 'MySQL', 'ELK', 'FileStorageService 모듈'],
       responsibilities: [
         '브랜치 전략·파이프라인(Job/Stage) 설계 및 공통 템플릿화',
-        '컨테이너 이미지 표준화(취약점 스캔 포함) 및 환경변수 시크릿 관리',
         '슬로우쿼리 모니터링·인덱스 재설계·월별 파티셔닝 적용',
       ],
       architecture: [
@@ -230,7 +226,6 @@ export default function Portfolio() {
       {/* Skills */}
       <section id="skills" className="max-w-6xl mx-auto px-4 py-14">
         <h2 className="text-2xl font-bold">Skills & Tools</h2>
-        <p className="text-slate-600 mt-2">DevOps/SRE 필수 역량과 블록체인 인프라 운영 경험을 중심으로 구성했습니다.</p>
         <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((s) => (
             <Card key={s.title} className="shadow-sm">
@@ -289,7 +284,6 @@ export default function Portfolio() {
       {/* Projects */}
       <section id="projects" className="max-w-6xl mx-auto px-4 py-14">
         <h2 className="text-2xl font-bold">Projects · Case Studies</h2>
-        <p className="text-slate-600 mt-2">직무 적합성이 높은 2개 사례를 중심으로 문제·접근·성과를 정리했습니다.</p>
         <div className="mt-6 grid md:grid-cols-2 gap-6">
           {projects.map((p) => (
             <Card key={p.id} className="hover:shadow-md transition">
@@ -343,7 +337,7 @@ export default function Portfolio() {
       {/* Architecture */}
       <section id="architecture" className="max-w-6xl mx-auto px-4 py-14">
         <h2 className="text-2xl font-bold">Architecture · 운영 다이어그램</h2>
-        <p className="text-slate-600 mt-2">실제 운영에 사용했던 구성 요소와 흐름을 텍스트로 요약했습니다. (필요 시 SVG/이미지 다이어그램 교체)</p>
+        <p className="text-slate-600 mt-2"></p>
         <div className="mt-6 grid lg:grid-cols-3 gap-4">
           <Card className="shadow-sm">
             <CardHeader>
@@ -380,12 +374,6 @@ export default function Portfolio() {
       </section>
 
       <Separator className="max-w-6xl mx-auto"/>
-
-      {/* Insights */}
-      <section id="insights" className="max-w-6xl mx-auto px-4 py-14">
-        <h2 className="text-2xl font-bold">Insights · 글/발표</h2>
-        <p className="text-slate-600 mt-2">운영에서 얻은 인사이트를 간략 포스트로 정리 (외부 링크 연결)</p>
-      </section>
 
       <Separator className="max-w-6xl mx-auto"/>
 
