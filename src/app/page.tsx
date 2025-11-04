@@ -174,7 +174,7 @@ export default function Portfolio() {
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="#home" className="font-semibold text-slate-900">Hiseung · DevOps/Blockchain</a>
+          <a href="#home" className="font-semibold text-slate-900">김희승 · DevOps</a>
           <nav className="hidden md:flex gap-6 text-sm">
             <a href="#skills" className="hover:underline">Skills</a>
             <a href="#projects" className="hover:underline">Projects</a>
