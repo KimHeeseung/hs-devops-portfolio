@@ -199,7 +199,7 @@ export default function Portfolio() {
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-              안정성과 확장성을 추구하는 <span className="text-slate-900">DevOps · 개발자</span>
+              안정성과 확장성을 추구하는 <span className="text-slate-900">개발자</span>
             </h1>
             <p className="mt-5 text-slate-600 leading-relaxed">
               하루 수십만 건 블록체인 트랜잭션과 1억+ 데이터 처리 경험을 기반으로,
