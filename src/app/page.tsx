@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,19 +9,26 @@ import { CheckCircle2, Github, Linkedin, Mail, Server, Settings, Boxes, Cpu, Act
 
 export default function Portfolio() {
   useEffect(() => {
-    // Smooth scroll for in-page anchors
-    const handleClick = (e) => {
-      const target = e.target.closest('a[href^="#"]');
+    // Smooth scroll for in-page anchors (typed & SSR-safe)
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement | null)?.closest('a[href^="#"]') as HTMLAnchorElement | null;
       if (!target) return;
-      const id = target.getAttribute('href').slice(1);
-      const el = document.getElementById(id);
+  
+      const href = target.getAttribute("href");
+      const id = href ? href.slice(1) : null;
+      const el = id ? document.getElementById(id) : null;
+  
       if (el) {
         e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
+  
+    if (typeof document !== "undefined") {
+      document.addEventListener("click", handleClick as EventListener);
+      return () => document.removeEventListener("click", handleClick as EventListener);
+    }
+    return;
   }, []);
 
   const skills = [
