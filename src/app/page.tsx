@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { additionalSkills, additionalProjects, incidents } from "@/lib/portfolio-additions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +16,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   CheckCircle2,
   Github,
-  Linkedin,
   Mail,
   Server,
   Settings,
@@ -43,7 +43,7 @@ export default function Portfolio() {
 
       if (el) {
         e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
       }
     };
 
@@ -57,6 +57,7 @@ export default function Portfolio() {
 
   // 이력서 SKILLS 기준으로 정리
   const skills = [
+    ...additionalSkills,
     {
       title: "Back-End",
       items: [
@@ -65,13 +66,18 @@ export default function Portfolio() {
         "Spring Security, JPA, MyBatis",
         "RESTful API (JSON 기반 설계/개발)",
         "Batch Processing",
+        "Next.js / Node.js 백엔드 구성",
+        "Node.js / Express / TypeScript, JWT 인증 (개인 프로젝트)",
+        "PHP GNUBOARD 레거시 운영",
       ],
     },
     {
-      title: "Front-End",
+      title: "Front-End / Mobile",
       items: [
         "JavaScript(ES6), jQuery, AJAX",
         "HTML5, CSS3",
+        "React Native Android 유지보수, APK 빌드·배포",
+        "React Native / TypeScript, React Navigation, AsyncStorage (개인 프로젝트)",
         "Thymeleaf",
         "반응형 웹 (Media Query, CSS Grid/Flexbox)",
       ],
@@ -79,7 +85,9 @@ export default function Portfolio() {
     {
       title: "Database",
       items: [
-        "MySQL, MariaDB",
+        "MySQL 8, MariaDB",
+        "Redis 대화 캐싱 (개인 프로젝트)",
+        "인덱스 설계·SQL 튜닝, 데이터 마이그레이션·정합성 검증",
         "Oracle DB, PostgreSQL",
         "MS SQL Server",
       ],
@@ -114,13 +122,14 @@ export default function Portfolio() {
 
   // 이력서 PROJECTS 내용 기반으로 과장된 스택/툴 제거하고 정리
   const projects = [
+    ...additionalProjects,
     {
       id: "pth",
       title: "블록체인 기반 PET 수거 리워드 시스템",
       subtitle: "Hyperledger Besu 기반 PTH 메인넷 · PET 수거 데이터 연동",
       impact: [
         "키오스크에서 수집된 PET 수거 데이터를 기반으로 실시간 PTH 코인 전송 요청 처리",
-        "하루 수십만 건 이상의 수거 데이터를 블록체인 보상과 연계하는 안정적인 구조 구축",
+        "수거 데이터와 보상 트랜잭션을 연결하고 요청부터 결과 반영까지 추적하는 구조 구축",
       ],
       stack: [
         "PHP",
@@ -136,6 +145,7 @@ export default function Portfolio() {
         "키오스크 수거 데이터 수신 API 및 블록체인 전송 요청 API 설계·구현",
         "tx_hash·UUID 기반 이중 지급 방지 로직 및 실패 트랜잭션 자동 재처리(5분 주기 배치) 구현",
         "블록체인 콜백 API를 통해 확정 트랜잭션 결과 수신 후 DB 반영 및 전체 로그 추적 구조 설계",
+        "Main Network ↔ ERC-20 Bridge 연계",
       ],
       architecture: [
         "Kiosk → API 서버 → PTH 전송 요청 → Besu 메인넷 → 콜백 API → 보상/로그 테이블 반영",
@@ -178,7 +188,7 @@ export default function Portfolio() {
       ],
       results: [
         "포인트·기프티콘 사용 이력의 추적이 가능해져, 정산 및 CS 대응 효율 향상",
-        "비정상 거래 감소 및 파트너·고객 만족도 제고",
+        "포인트·주문 결과 검증 및 거래 이력 확인 기능 제공",
       ],
       links: { repo: "", doc: "" },
     },
@@ -223,7 +233,7 @@ export default function Portfolio() {
       responsibilities: [
         "MVC 패턴 기반 신규 관제 시스템 API/화면 설계 및 구현",
         "Spring Security를 활용한 사용자 인증·권한 관리 로직 구현",
-        "GitLab·Jenkins를 사용한 자동 빌드/배포 파이프라인 구성",
+        "GitLab → Jenkins → Maven → Spring Boot 자동 빌드/배포 파이프라인 구성",
       ],
       architecture: [
         "GitLab → Jenkins Build → 테스트 → 서버(Spring Boot/Tomcat) 배포",
@@ -273,11 +283,6 @@ export default function Portfolio() {
     { label: "Email", icon: Mail, href: "mailto:akwlsrkek@naver.com" },
     { label: "GitHub", icon: Github, href: "https://github.com/KimHeeseung" },
     {
-      label: "LinkedIn",
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/your-id",
-    },
-    {
       label: "Velog",
       icon: TerminalSquare,
       href: "https://velog.io/@akwlsrkek/posts",
@@ -288,11 +293,11 @@ export default function Portfolio() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-800">
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap gap-3 items-center justify-between">
           <a href="#home" className="font-semibold text-slate-900">
             김희승
           </a>
-          <nav className="hidden md:flex gap-6 text-sm">
+          <nav aria-label="주요 섹션" className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             <a href="#skills" className="hover:underline">
               Skills
             </a>
@@ -302,11 +307,14 @@ export default function Portfolio() {
             <a href="#architecture" className="hover:underline">
               Architecture
             </a>
-            <a href="#runbooks" className="hover:underline">
-              Runbooks
+            <a href="#troubleshooting" className="hover:underline">
+              Troubleshooting
             </a>
             <a href="#additional-projects" className="hover:underline">
               More
+            </a>
+            <a href="#personal-projects" className="hover:underline">
+              Personal
             </a>
             <a href="#contact" className="hover:underline">
               Contact
@@ -321,15 +329,18 @@ export default function Portfolio() {
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-              안정성과 확장성을 추구하는{" "}
-              <span className="text-slate-900">백엔드/서버 개발자</span>
+              김희승 |{" "}
+              <span className="text-slate-900">Backend &amp; DevOps Engineer</span>
             </h1>
             <p className="mt-5 text-slate-600 leading-relaxed">
-              키오스크 관제, 블록체인 리워드, 복지몰 연동 등 실제 운영 서비스를
-              다루며 쌓아 온 경험을 바탕으로,
+              키오스크·앱·API·포인트·통계 시스템을 개발하고 운영하며,
+              AWS 인프라와 배포 자동화까지 함께 다룹니다.
               <br />
               안정적인 API와 배치, 모니터링이 가능한 백엔드/인프라 환경을
               설계하는 데 집중합니다.
+            </p>
+            <p className="mt-4 text-sm font-medium text-slate-600">
+              Java · Spring Boot · PHP · MySQL · AWS · Jenkins · Linux · Hyperledger Besu
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <Badge className="rounded-full" variant="secondary">
@@ -358,31 +369,21 @@ export default function Portfolio() {
               </Button>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="shadow-sm">
-              <CardContent className="p-4 flex items-center gap-3">
-                <Server />
-                안정적 서비스 운영
-              </CardContent>
-            </Card>
-            <Card className="shadow-sm">
-              <CardContent className="p-4 flex items-center gap-3">
-                <Settings />
-                배치·자동화
-              </CardContent>
-            </Card>
-            <Card className="shadow-sm">
-              <CardContent className="p-4 flex items-center gap-3">
-                <Network />
-                관제·모니터링
-              </CardContent>
-            </Card>
-            <Card className="shadow-sm">
-              <CardContent className="p-4 flex items-center gap-3">
-                <Shield />
-                데이터 신뢰성
-              </CardContent>
-            </Card>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { icon: Server, title: "Production Backend", text: "키오스크·앱·API·포인트·상품·통계 시스템 개발 및 운영" },
+              { icon: Network, title: "Cloud & Infrastructure", text: "AWS Aurora Serverless v2 · EC2 · S3 · SNS · Linux · Apache · SSL" },
+              { icon: Settings, title: "DevOps & Automation", text: "GitLab · Jenkins · Maven · Shell · Cron · 배포·운영 자동화" },
+              { icon: Shield, title: "Blockchain", text: "Hyperledger Besu · PTH Transaction · Callback · Retry · Bridge" },
+            ].map((item) => (
+              <Card key={item.title} className="shadow-sm">
+                <CardContent className="p-5 space-y-3">
+                  <item.icon className="h-5 w-5 text-slate-600" />
+                  <h2 className="font-semibold">{item.title}</h2>
+                  <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -402,7 +403,7 @@ export default function Portfolio() {
                 <ul className="space-y-2 text-sm text-slate-700">
                   {s.items.map((i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-4 w-4 mt-0.5" />
+                      <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0" />
                       {i}
                     </li>
                   ))}
@@ -423,7 +424,7 @@ export default function Portfolio() {
             <CardHeader>
               <CardTitle className="text-base">플라스틱히어로코리아</CardTitle>
               <CardDescription>
-                Engineer (Back-End / Monitoring) · 2024.05 – 재직 중
+                Engineer (Backend / DevOps) · 2024.05 – 재직 중
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -432,7 +433,11 @@ export default function Portfolio() {
                 <li>Spring 기반 웹 애플리케이션 및 API 개발/유지보수</li>
                 <li>실시간 데이터 모니터링 및 관리</li>
                 <li>WEB & APP 운영 및 사내 서버 관리</li>
-                <li>DB 관리(DBA) 및 배치 작업 운영</li>
+                <li>팜스몰 상품·포인트 주문·배송·CS 관리 시스템 단독 개발</li>
+                <li>MySQL 집계·쿼리 개선, 데이터 정합성 검증 및 배치 작업 운영</li>
+                <li>Aurora Serverless v2·EC2·S3 운영 및 DB 접근·비용 관리</li>
+                <li>키오스크 영상 자동배포 및 React Native Android 앱 유지보수</li>
+                <li>Jenkins 배포 자동화, Linux·SSL·도메인 운영 장애 대응</li>
               </ul>
             </CardContent>
           </Card>
@@ -463,7 +468,7 @@ export default function Portfolio() {
         <h2 className="text-2xl font-bold">Projects · Case Studies</h2>
         <div className="mt-6 grid md:grid-cols-2 gap-6">
           {projects.map((p) => (
-            <Card key={p.id} className="hover:shadow-md transition">
+            <Card id={p.id} key={p.id} className="scroll-mt-28 hover:shadow-md transition">
               <CardHeader>
                 <CardTitle>{p.title}</CardTitle>
                 <CardDescription>{p.subtitle}</CardDescription>
@@ -474,7 +479,7 @@ export default function Portfolio() {
                   <ul className="mt-2 text-sm text-slate-700 space-y-2">
                     {p.impact.map((x) => (
                       <li key={x} className="flex gap-2">
-                        <CheckCircle2 className="h-4 w-4 mt-0.5" />
+                        <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0" />
                         {x}
                       </li>
                     ))}
@@ -567,7 +572,7 @@ export default function Portfolio() {
               </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-slate-700 space-y-2">
-              <p>GitLab → Jenkins 빌드/테스트 → 아티팩트 생성 → 서버 배포</p>
+              <p>GitLab → Jenkins → Maven 빌드 → Spring Boot 서버 배포</p>
               <p>Spring Boot/Tomcat 기반 서비스에 대한 자동 배포 및 롤백 절차 정리</p>
               <p>운영/개발 브랜치 분리로 안정적인 배포 플로우 유지</p>
             </CardContent>
@@ -597,6 +602,23 @@ export default function Portfolio() {
         </div>
       </section>
 
+      <Separator className="max-w-6xl mx-auto" />
+
+      <section id="troubleshooting" className="max-w-6xl mx-auto px-4 py-14">
+        <h2 className="text-2xl font-bold">Troubleshooting · Production Incidents</h2>
+        <p className="text-slate-600 mt-2">운영 중 다룬 문제와 대응 내용을 정리했습니다.</p>
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          {incidents.map((incident) => (
+            <Card key={incident.title} className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-base">{incident.title}</CardTitle>
+                <CardDescription>{incident.symptom}</CardDescription>
+              </CardHeader>
+              <CardContent className="text-sm leading-relaxed text-slate-700">{incident.response}</CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
       <Separator className="max-w-6xl mx-auto" />
 
       {/* Runbooks */}
@@ -684,53 +706,99 @@ export default function Portfolio() {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition">
+
+        </div>
+      </section>
+
+      <Separator className="max-w-6xl mx-auto" />
+
+      {/* Personal Projects */}
+      <section id="personal-projects" className="max-w-6xl mx-auto px-4 py-14">
+        <h2 className="text-2xl font-bold">Personal Projects</h2>
+        <div className="mt-6 grid md:grid-cols-2 gap-6">
+          <Card id="harudama" className="scroll-mt-28 hover:shadow-md transition">
             <CardHeader>
-              <CardTitle>대용량 데이터 추출·집계 & 엑셀 다운로드</CardTitle>
-              <CardDescription>
-                1억+ 레코드 · 쿼리 튜닝 · Apache POI (2024.05–2024.09)
-              </CardDescription>
+              <div className="mb-2 flex flex-wrap gap-2">
+                <Badge variant="secondary">개인 프로젝트</Badge>
+                <Badge variant="outline">개발 진행 중</Badge>
+              </div>
+              <CardTitle>하루다마 (Harudama) — AI 라이프로그 서비스</CardTitle>
+              <CardDescription>React Native CLI · Express(Node.js) · TypeScript 기반 AI 대화형 일상 기록 서비스</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2 text-sm text-slate-700">
-              <ul className="list-disc ml-5 space-y-1">
-                <li>인덱스·쿼리 튜닝 및 파티셔닝을 통한 조회 성능 개선</li>
-                <li>Apache POI 기반 대용량 엑셀 내보내기 기능 구현</li>
-                <li>필터/정렬 옵션을 제공하여 운영·분석 용도 확대</li>
-              </ul>
+            <CardContent className="space-y-4 text-sm text-slate-700">
+              <p className="leading-relaxed">
+                AI와 대화하며 일상과 일정을 기록하고, 과거 대화와 기록을 다시 조회할 수 있는 모바일 서비스를 개발하고 있습니다.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["React Native CLI", "TypeScript", "Node.js", "Express", "JWT", "MySQL", "Redis", "OpenAI Responses API", "React Navigation", "AsyncStorage", "Docker"].map((tech) => (
+                  <Badge key={tech} variant="secondary" className="rounded-full">{tech}</Badge>
+                ))}
+              </div>
+              <div>
+                <h3 className="font-semibold">Role & Responsibilities</h3>
+                <ul className="mt-2 list-disc ml-5 space-y-2">
+                  <li>React Native / TypeScript 모바일 화면 및 백엔드 API 연동 개발</li>
+                  <li>Node.js / Express / TypeScript 기반 API와 JWT 인증·사용자별 데이터 접근 검사 구현</li>
+                  <li>MySQL 기반 사용자·채팅방·메시지 저장 및 대화 내역 조회</li>
+                  <li>Redis List·TTL 기반 최근 대화 캐싱과 사용자 기억 Context 관리</li>
+                  <li>OpenAI Responses API에 대화·기억 Context를 전달하는 AI 응답 기능 구현</li>
+                  <li>대화 의도에 따른 일정 처리 및 기간별 과거 기록 조회 흐름 개발</li>
+                  <li>React Navigation 화면 전환과 AsyncStorage 기반 로컬 데이터 관리</li>
+                  <li>React Native CLI 기반 Android·iOS 빌드 설정 및 Docker 기반 서버 실행 환경 구성</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold">Architecture Notes</h3>
+                <p className="mt-2 leading-relaxed">React Native 앱 → Express 인증·대화 API → MySQL 기록 저장 / Redis Context 조회 → OpenAI Responses API → 응답 저장·표시</p>
+              </div>
             </CardContent>
           </Card>
-
-          <Card className="hover:shadow-md transition">
+          <Card id="jarvis" className="scroll-mt-28 hover:shadow-md transition">
             <CardHeader>
-              <CardTitle>웹 기반 관제시스템 (Spring Boot 전환)</CardTitle>
-              <CardDescription>
-                MVC · REST · CI/CD · Security (2023.11–2024.02)
-              </CardDescription>
+              <div className="mb-2">
+                <Badge variant="secondary">개인 프로젝트</Badge>
+              </div>
+              <CardTitle>자비스 포켓 (Jarvis Pocket) — 개인 Mac 작업 비서</CardTitle>
+              <CardDescription>React Native CLI · Node.js · 모바일–서버–Mac 에이전트 연동</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2 text-sm text-slate-700">
-              <ul className="list-disc ml-5 space-y-1">
-                <li>기존 PHP 시스템을 Spring Boot로 전환, 구조 개선</li>
-                <li>Jenkins/GitLab CI 기반 자동 빌드·배포 파이프라인 구축</li>
-                <li>Spring Security 기반 인증/권한 관리 구현</li>
-              </ul>
+            <CardContent className="space-y-4">
+              <p className="text-sm leading-relaxed text-slate-700">
+                iPhone에서 텍스트·음성으로 작업을 요청하고, Mac의 Codex 실행 에이전트가 처리한 결과를 앱에서 확인하는 개인 비서 프로젝트입니다. 파일 작성·코드 수정·테스트 요청을 전달하는 실행 흐름과 작업 상태 관리 기능을 개발했습니다.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["React Native CLI", "TypeScript", "Node.js HTTP", "Codex CLI", "Apple Speech", "TTS", "Tailscale"].map((tech) => (
+                  <Badge key={tech} variant="secondary" className="rounded-full">{tech}</Badge>
+                ))}
+              </div>
+              <div className="text-sm text-slate-700">
+                <h3 className="font-semibold">Role & Responsibilities</h3>
+                <ul className="mt-2 list-disc ml-5 space-y-2">
+                  <li>React Native CLI / TypeScript 기반 대화·작업 결과 화면과 연결 설정, 인증 실패·오프라인 상태 표시 구현</li>
+                  <li>Node.js 기본 HTTP 모듈 기반 서버와 Mac 작업 실행 에이전트 구성, 앱·에이전트 연결 토큰 분리</li>
+                  <li>Codex CLI를 별도 프로세스로 실행하고 사용자 요청을 표준 입력으로 전달, 작업 폴더와 실행 시간 제한 적용</li>
+                  <li>작업 임대 갱신과 결과·실행 기록 저장으로 중복 실행 방지, 완료·차단·실패 결과 구분</li>
+                  <li>Apple 한국어 음성 인식 네이티브 모듈 및 TTS 출력·음소거·취소 처리 구현</li>
+                  <li>TTS·오디오 라이브러리의 네이티브 호환 문제를 재설치 시 적용되는 패치로 관리</li>
+                  <li>Tailscale Serve 기반 HTTPS 연결 설정 스크립트와 iOS 개인용 Release 빌드 스킴 구성</li>
+                </ul>
+              </div>
+              <div className="text-sm text-slate-700">
+                <h3 className="font-semibold">Architecture Notes</h3>
+                <p className="mt-2 leading-relaxed">iPhone → Node.js 서버 → Mac 에이전트 → Codex CLI → 실행 결과 저장 → 모바일 결과 표시·음성 출력</p>
+                <p className="mt-2 leading-relaxed">JSON 파일 기반 대화·작업 상태 저장, 실행 권한 부족과 처리 실패를 완료 상태와 구분</p>
+              </div>
+              <div className="text-sm text-slate-700">
+                <h3 className="font-semibold">Validation & Scope</h3>
+                <p className="mt-2 leading-relaxed">저장소 검증 기록 기준으로 서버·에이전트 처리 흐름과 실제 Codex 응답 연동을 확인했습니다. 실기기 음성 입출력, 외부망 연결 및 실제 코드 수정·테스트의 전체 실행 흐름은 추가 검증 대상입니다.</p>
+              </div>
             </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-md transition">
-            <CardHeader>
-              <CardTitle>Camp24 – 캠핑 플랫폼</CardTitle>
-              <CardDescription>
-                로그인/마이페이지/중고거래 · KakaoPay(i’mport)
-                (2022.02–2022.08)
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm text-slate-700">
-              <ul className="list-disc ml-5 space-y-1">
-                <li>로그인/마이페이지/중고 거래 게시판 기능 구현</li>
-                <li>결제 후 알림 및 거래 내역 관리 플로우 구현</li>
-                <li>팀 협업·코드 리뷰·Git 워크플로 경험</li>
-              </ul>
-            </CardContent>
+            <CardFooter>
+              <Button variant="outline" asChild>
+                <a href="https://github.com/KimHeeseung/jarvis-pocket" target="_blank" rel="noreferrer">
+                  <Github className="h-4 w-4 mr-1" /> GitHub
+                </a>
+              </Button>
+            </CardFooter>
           </Card>
         </div>
       </section>
@@ -754,7 +822,7 @@ export default function Portfolio() {
 
       <footer className="border-t">
         <div className="max-w-6xl mx-auto px-4 py-8 text-xs text-slate-500 flex flex-wrap items-center gap-3">
-          <span>© {new Date().getFullYear()} Hiseung – Backend / Server</span>
+          <span>© {new Date().getFullYear()} 김희승 – Backend & DevOps Engineer</span>
           <span className="hidden md:inline">·</span>
           <span>포트폴리오는 실제 운영·개발 경험을 바탕으로 작성되었습니다.</span>
         </div>
